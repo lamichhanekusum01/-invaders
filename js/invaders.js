@@ -71,11 +71,38 @@ for( var enemy = 0; enemy < enemies.length; enemy = enemy+1){
 }
 
 }
+function moveEnemies(){
+    for( var enemy = 0; enemy < enemies.length; enemy = enemy+1){
+        enemies[enemy].top =enemies[enemy].top +3;
+    }
+    }
+
+      function collisionDetection(){
+        for( var enemy = 0; enemy < enemies.length; enemy = enemy+1){
+            for( var missile = 0; missile < missiles.length; missile = missile+1){
+                if(
+                    (missiles[missile].top <= enemies[enemy].top+50)&&
+                   ( missiles[missile].top >= enemies[enemy].top)&&
+                   ( missiles[missile].left >= enemies[enemy].left)&&
+                   ( missiles[missile].left <= enemies[enemy].left +50)
+                ){
+                    enemies.splice(enemy,1);
+                    missiles.splice(missile,1);
+                }
+            }
+            
+        }
+
+      }
 
 function gameLoop(){
+    
 setTimeout(gameLoop , 50)
+collisionDetection();
 moveMissiles();
 drawMissiles();
+moveEnemies();
 drawEnemies() ;
+
 }
 gameLoop();
